@@ -1,0 +1,21 @@
+# Example OpenTelemetry Collector config
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+exporters:
+  kafka:
+    brokers:
+      - localhost:9092
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [kafka]
+    metrics:
+      receivers: [otlp]
+      exporters: [kafka]
+    logs:
+      receivers: [otlp]
+      exporters: [kafka]

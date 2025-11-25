@@ -1,0 +1,17 @@
+{
+  "name": "observax-workers",
+  "version": "0.1.0",
+  "main": "processors/logs.ts",
+  "scripts": {
+    "dev": "ts-node-dev processors/logs.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0"
+  }
+}

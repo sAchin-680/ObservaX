@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - "9092:9092"
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+  collector:
+    image: otel/opentelemetry-collector:latest
+    ports:
+      - "4317:4317"
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
