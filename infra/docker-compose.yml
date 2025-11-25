@@ -1,22 +1,40 @@
-version: "3.8"
 services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
   kafka:
-    image: bitnami/kafka:latest
+    image: confluentinc/cp-kafka:7.5.0
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
     ports:
-      - "9092:9092"
-  clickhouse:
-    image: clickhouse/clickhouse-server:latest
+      - 9092:9092
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
     ports:
-      - "8123:8123"
-  collector:
-    image: otel/opentelemetry-collector:latest
+      - "16686:16686"
+      - "14268:14268"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    command: ["--config", "/etc/otel-collector-config.yaml"]
+    depends_on:
+      - kafka
+      - jaeger
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
     ports:
+      - "4318:4318"
       - "4317:4317"
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"

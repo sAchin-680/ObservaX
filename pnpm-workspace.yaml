@@ -1,4 +1,7 @@
 packages:
-  - 'services/*'
-  - 'examples/*'
-  - 'infra'
+  - services/*
+  - examples/*
+  - infra
+
+onlyBuiltDependencies:
+  - sharp
