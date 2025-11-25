@@ -39,5 +39,16 @@ coverage/
 # Others
 *.tgz
 
+# Docker volumes and build artifacts
+infra/clickhouse_data/
+infra/mongo_data/
+infra/otel-collector-config.yaml/
+services/*/node_modules/
+services/*/dist/
+services/*/coverage/
+worker/node_modules/
+worker/dist/
+worker/coverage/
+
 # Ignore test data
 data/test-data/

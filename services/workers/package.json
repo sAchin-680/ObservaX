@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "processors/logs.ts",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "dev": "ts-node-dev processors/logs.ts",
     "test": "jest"
   },
