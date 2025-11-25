@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run lint
+npx eslint services/api/src --ext .js,.ts,.tsx --fix
