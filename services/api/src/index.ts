@@ -13,9 +13,18 @@ import logsStreamRouter from './routes/logsStream';
 import serviceHealthRouter from './routes/service-health';
 import retentionRouter from './routes/retention';
 import retentionDownloadRouter from './routes/retention-download';
+import { requireAuth } from './middleware/auth';
+import { requireOrgNamespace } from './middleware/orgNamespace';
+import { rateLimit } from './middleware/rateLimit';
+import usersRouter from './routes/users';
 
 const app = express();
 app.use(express.json());
+
+// Global security middlewares
+app.use(requireAuth(['user', 'admin', 'readonly']));
+app.use(requireOrgNamespace());
+app.use(rateLimit('api'));
 
 app.use('/traces', tracesRouter);
 app.use('/logs', logsRouter);
@@ -27,6 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/service-health', serviceHealthRouter);
 app.use('/retention', retentionRouter);
 app.use('/api/retention', retentionDownloadRouter);
+app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
