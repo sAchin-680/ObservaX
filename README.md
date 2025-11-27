@@ -36,12 +36,12 @@ ObservaX is actively developed. Here’s the current status of major features:
 | Kafka buffering & streaming   | **Done**    | Reliable event streaming and buffering.           |
 | Worker processing pipeline    | **Done**    | Distributed processing of telemetry data.         |
 | ClickHouse storage            | **Done**    | High-performance storage for logs/traces/metrics. |
-| Express.js Query API          | In Progress | Unified API for querying observability data.      |
-| Next.js dashboard (UI)        | In Progress | Modern dashboard for visualization and analysis.  |
+| Express.js Query API          | **Done**    | Unified API for querying observability data.      |
+| Next.js dashboard (UI)        | **Done**    | Modern dashboard for visualization and analysis.  |
+| Metrics explorer & dashboards | **Done**    | Custom metrics dashboards and explorers.          |
+| Alerts (threshold/anomaly)    | **Done**    | Alerting on thresholds and anomalies.             |
 | Jaeger trace visualization    | In Progress | Deep trace analysis and visualization.            |
-| Metrics explorer & dashboards | In Progress | Custom metrics dashboards and explorers.          |
 | Service topology graph        | Planned     | Visualize service dependencies and topology.      |
-| Alerts (threshold/anomaly)    | Planned     | Alerting on thresholds and anomalies.             |
 
 ---
 
