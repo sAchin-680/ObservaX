@@ -8,15 +8,18 @@ import Org from '../models/org';
 import { connectMongo } from '../models/mongo';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 // Connect to MongoDB
 connectMongo();
 
 // Email integration (SendGrid stub)
 const transporter = nodemailer.createTransport({
-  host: 'smtp.sendgrid.net',
-  port: 587,
+  host: process.env.SENDGRID_HOST || 'smtp.sendgrid.net',
+  port: process.env.SENDGRID_PORT ? Number(process.env.SENDGRID_PORT) : 587,
   auth: {
     user: process.env.SENDGRID_USER,
     pass: process.env.SENDGRID_PASS,
