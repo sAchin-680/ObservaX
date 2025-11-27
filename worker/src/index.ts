@@ -3,6 +3,7 @@ import ClickHouse from '@apla/clickhouse';
 import { MongoClient } from 'mongodb';
 import Redis from 'ioredis';
 import type { Db } from 'mongodb';
+import { connectLogsWebSocket, broadcastLog } from './wsClient';
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ let db: Db | undefined;
 mongo.connect().then(() => {
   db = mongo.db('observax');
 });
+connectLogsWebSocket();
 
 app.post('/telemetry', async (req, res) => {
   const { type, payload } = req.body;
@@ -53,6 +55,8 @@ app.post('/telemetry', async (req, res) => {
           ${JSON.stringify(payload.attributes?.value)}
         )
       `);
+      // Broadcast to WebSocket
+      broadcastLog(payload);
     }
 
     if (type === 'metric') {
