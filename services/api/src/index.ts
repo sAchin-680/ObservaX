@@ -5,6 +5,7 @@ import tracesRouter from './routes/traces';
 import logsRouter from './routes/logs';
 import metricsRouter from './routes/metrics';
 import servicesRouter from './routes/services';
+import samplingRouter from './routes/sampling';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 import { setupLogsLiveWebSocket } from './ws/logsLive';
@@ -18,6 +19,7 @@ app.use('/logs', logsRouter);
 app.use('/logs', logsStreamRouter);
 app.use('/metrics', metricsRouter);
 app.use('/services', servicesRouter);
+app.use('/sampling', samplingRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.PORT || 4000;

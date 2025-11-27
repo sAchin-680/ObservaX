@@ -12,7 +12,7 @@ router.post('/query', async (req, res) => {
     if (end) query += ` AND timestamp <= '${end}'`;
     if (filters && typeof filters === 'object') {
       for (const [key, value] of Object.entries(filters)) {
-        query += ` AND ${key} = '${String(value).replace(/'/g, '\'\'')}'`;
+        query += ` AND ${key} = '${String(value).replace(/'/g, "''")}'`;
       }
     } else if (metric) {
       // Previous metrics query mode
@@ -21,7 +21,7 @@ router.post('/query', async (req, res) => {
       if (end) sql += ` AND timestamp <= '${end}'`;
       if (filters && typeof filters === 'object') {
         for (const [key, value] of Object.entries(filters)) {
-          sql += ` AND ${key} = '${String(value).replace(/'/g, '\'\'')}'`;
+          sql += ` AND ${key} = '${String(value).replace(/'/g, "''")}'`;
         }
       }
       sql += ` ORDER BY timestamp DESC LIMIT ${limit}`;
