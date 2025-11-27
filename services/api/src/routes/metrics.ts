@@ -14,6 +14,21 @@ router.post('/query', async (req, res) => {
       for (const [key, value] of Object.entries(filters)) {
         query += ` AND ${key} = '${String(value).replace(/'/g, '\'\'')}'`;
       }
+    } else if (metric) {
+      // Previous metrics query mode
+      let sql = `SELECT * FROM metrics WHERE name = '${metric}'`;
+      if (start) sql += ` AND timestamp >= '${start}'`;
+      if (end) sql += ` AND timestamp <= '${end}'`;
+      if (filters && typeof filters === 'object') {
+        for (const [key, value] of Object.entries(filters)) {
+          sql += ` AND ${key} = '${String(value).replace(/'/g, '\'\'')}'`;
+        }
+      }
+      sql += ` ORDER BY timestamp DESC LIMIT ${limit}`;
+      const metrics = await clickhouse.query(sql).toPromise();
+      res.json({ metrics });
+    } else {
+      res.status(400).json({ error: 'Missing query or metric parameter.' });
     }
     query += ` ORDER BY timestamp DESC LIMIT ${limit}`;
     const metrics = await clickhouse.query(query).toPromise();
