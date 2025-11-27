@@ -5,6 +5,7 @@ import Redis from 'ioredis';
 import type { Db } from 'mongodb';
 import { connectLogsWebSocket, broadcastLog } from './wsClient';
 import { startHealthScoreWorker } from './serviceHealth';
+import { dailyExportWorker } from './s3Exporter';
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,9 @@ connectLogsWebSocket();
 
 // Start health score worker
 startHealthScoreWorker();
+
+// Start daily S3 export worker
+dailyExportWorker();
 
 app.post('/telemetry', async (req, res) => {
   const { type, payload } = req.body;
