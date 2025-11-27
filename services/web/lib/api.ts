@@ -45,3 +45,16 @@ export async function fetchTraceById(id: string) {
   const data = await res.json();
   return data;
 }
+
+export async function fetchJaegerTraces(service = '', limit = 20, start = '', end = '') {
+  const params = new URLSearchParams({ service, limit: String(limit), start, end });
+  const res = await fetch(`/api/traces/jaeger/latest?${params}`);
+  if (!res.ok) throw new Error('Failed to fetch Jaeger traces');
+  return await res.json();
+}
+
+export async function fetchJaegerTraceById(id: string) {
+  const res = await fetch(`/api/traces/jaeger/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch Jaeger trace');
+  return await res.json();
+}

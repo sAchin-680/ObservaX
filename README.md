@@ -40,7 +40,7 @@ ObservaX is actively developed. Here’s the current status of major features:
 | Next.js dashboard (UI)        | **Done**    | Modern dashboard for visualization and analysis.  |
 | Metrics explorer & dashboards | **Done**    | Custom metrics dashboards and explorers.          |
 | Alerts (threshold/anomaly)    | **Done**    | Alerting on thresholds and anomalies.             |
-| Jaeger trace visualization    | In Progress | Deep trace analysis and visualization.            |
+| Jaeger trace visualization    | **Done**    | Deep trace analysis and visualization.            |
 | Service topology graph        | Planned     | Visualize service dependencies and topology.      |
 
 ---

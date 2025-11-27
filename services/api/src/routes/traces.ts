@@ -3,6 +3,7 @@ const router = Router();
 
 // GET /traces/latest
 import clickhouse from '../clients/clickhouse';
+import { fetchJaegerTraces, fetchJaegerTraceById } from '../lib/jaeger';
 
 router.get('/latest', async (req, res) => {
   const page = parseInt(req.query.page as string) || 1;
@@ -18,8 +19,8 @@ router.get('/latest', async (req, res) => {
         page,
         limit,
         offset,
-        count: traces.length
-      }
+        count: traces.length,
+      },
     });
   } catch (err) {
     res.status(500).json({ error: String(err) });
@@ -36,8 +37,35 @@ router.get('/:id', async (req, res) => {
     // Normalize response
     res.json({
       traceId,
-      waterfall: spans
+      waterfall: spans,
     });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// GET /traces/jaeger/latest
+router.get('/jaeger/latest', async (req, res) => {
+  const { service = '', limit = 20, start = '', end = '' } = req.query;
+  try {
+    const data = await fetchJaegerTraces(
+      service as string,
+      Number(limit),
+      start as string,
+      end as string
+    );
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// GET /traces/jaeger/:id
+router.get('/jaeger/:id', async (req, res) => {
+  const traceId = req.params.id;
+  try {
+    const data = await fetchJaegerTraceById(traceId);
+    res.json(data);
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }
