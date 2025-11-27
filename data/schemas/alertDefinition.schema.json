@@ -12,10 +12,19 @@
       "type": "array",
       "items": { "type": "string", "enum": ["slack", "webhook", "email"] }
     },
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a2160cb (chore(security): remove personal and global secrets, refactor alert notification for multi-user production support)
     "emails": {
       "type": "array",
       "items": { "type": "string", "format": "email" }
     },
+<<<<<<< HEAD
+=======
+>>>>>>> 959f9d6 (feat(alerts): validate Slack alert notification workflow and update testNotifier for production use)
+=======
+>>>>>>> a2160cb (chore(security): remove personal and global secrets, refactor alert notification for multi-user production support)
     "enabled": { "type": "boolean" }
   },
   "required": ["name", "type", "query", "threshold", "window", "channels", "enabled"]

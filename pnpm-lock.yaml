@@ -176,9 +176,18 @@ importers:
       axios:
         specifier: ^1.13.2
         version: 1.13.2
+<<<<<<< HEAD
+<<<<<<< HEAD
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
+=======
+>>>>>>> 959f9d6 (feat(alerts): validate Slack alert notification workflow and update testNotifier for production use)
+=======
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
+>>>>>>> a2160cb (chore(security): remove personal and global secrets, refactor alert notification for multi-user production support)
       ioredis:
         specifier: ^5.8.2
         version: 5.8.2
