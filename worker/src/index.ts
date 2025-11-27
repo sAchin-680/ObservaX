@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb';
 import Redis from 'ioredis';
 import type { Db } from 'mongodb';
 import { connectLogsWebSocket, broadcastLog } from './wsClient';
+import { startHealthScoreWorker } from './serviceHealth';
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,9 @@ mongo.connect().then(() => {
   db = mongo.db('observax');
 });
 connectLogsWebSocket();
+
+// Start health score worker
+startHealthScoreWorker();
 
 app.post('/telemetry', async (req, res) => {
   const { type, payload } = req.body;

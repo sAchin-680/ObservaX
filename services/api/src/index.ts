@@ -10,6 +10,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 import { setupLogsLiveWebSocket } from './ws/logsLive';
 import logsStreamRouter from './routes/logsStream';
+import serviceHealthRouter from './routes/service-health';
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use('/metrics', metricsRouter);
 app.use('/services', servicesRouter);
 app.use('/sampling', samplingRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/service-health', serviceHealthRouter);
 
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
