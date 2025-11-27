@@ -52,3 +52,6 @@ worker/coverage/
 
 # Ignore test data
 data/test-data/
+
+# Environment variables
+/services/worker/.env

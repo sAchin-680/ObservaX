@@ -13,8 +13,11 @@ export async function sendNotification(alert: any, state: 'triggered' | 'resolve
     if (channel === 'webhook' && alert.webhookUrl) {
       await axios.post(alert.webhookUrl, message);
     }
-    if (channel === 'email' && alert.email) {
-      // Implement email sending logic here (SMTP or service)
+    if (channel === 'email' && Array.isArray(alert.emails)) {
+      for (const email of alert.emails) {
+        // Implement email sending logic here (SMTP or service)
+        // Example: sendEmail(email, message.text)
+      }
     }
   }
 }

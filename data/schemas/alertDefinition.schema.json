@@ -12,6 +12,10 @@
       "type": "array",
       "items": { "type": "string", "enum": ["slack", "webhook", "email"] }
     },
+    "emails": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" }
+    },
     "enabled": { "type": "boolean" }
   },
   "required": ["name", "type", "query", "threshold", "window", "channels", "enabled"]
