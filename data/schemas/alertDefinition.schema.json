@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AlertDefinition",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "type": { "type": "string", "enum": ["threshold", "ratio", "log_pattern", "slo_burn"] },
+    "query": { "type": "string" },
+    "threshold": { "type": "number" },
+    "window": { "type": "string", "enum": ["1m", "5m", "1h"] },
+    "channels": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["slack", "webhook", "email"] }
+    },
+    "enabled": { "type": "boolean" }
+  },
+  "required": ["name", "type", "query", "threshold", "window", "channels", "enabled"]
+}
